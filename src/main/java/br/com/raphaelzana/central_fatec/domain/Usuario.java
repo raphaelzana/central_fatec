@@ -32,7 +32,7 @@ public class Usuario implements Serializable {
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
-		this.tipo = (tipo == null) ? null : tipo.getId();;
+		this.tipo = (tipo == null) ? null : tipo.getId();
 	}
 
 	public Integer getId() {
