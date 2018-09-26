@@ -17,16 +17,18 @@ public class Reserva implements Serializable {
 	private Integer id;
 	
 	private Projetor projetor;
-	private Date data;
+	private Date dataInicio;
+	private Date dataFim;
 	private Usuario usuario;
 
 	public Reserva() {}
 
-	public Reserva(Integer id, Projetor projetor, Date data, Usuario usuario) {
+	public Reserva(Integer id, Projetor projetor, Date dataInicio,Date dataFim, Usuario usuario) {
 		super();
 		this.id = id;
 		this.projetor = projetor;
-		this.data = data;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
 		this.usuario = usuario;
 	}
 
@@ -38,6 +40,22 @@ public class Reserva implements Serializable {
 		this.id = id;
 	}
 
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
 	public Projetor getProjetor() {
 		return projetor;
 	}
@@ -46,20 +64,37 @@ public class Reserva implements Serializable {
 		this.projetor = projetor;
 	}
 
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reserva other = (Reserva) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 	
