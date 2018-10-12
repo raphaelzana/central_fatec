@@ -4,48 +4,48 @@ import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
-public class Aula  implements Serializable {
-	
+public class Disciplina_Sala implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
+	@JsonIgnore
 	@EmbeddedId
-	private AulaPK id = new AulaPK();
+	private Disciplina_SalaPK id = new Disciplina_SalaPK();
+	
+	@ManyToOne
+	@JoinColumn(name="sala_id")
 	private Sala sala;
 	
-	private String dia;
-	private String horario;
+	private String diaSemana;
+	private Integer aula;
 	
-	public Aula() {}
+	public Disciplina_Sala() {}
 
-	public Aula(Periodo periodo, Disciplina disciplina, Sala sala, String dia, String horario) {
+	public Disciplina_Sala(Disciplina disciplina, Periodo periodo, Sala sala, String diaSemana, Integer aula) {
 		super();
-		id.setPeriodo(periodo);
 		id.setDisciplina(disciplina);
-		this.sala = sala;
-		this.dia = dia;
-		this.horario = horario;
+		id.setPeriodo(periodo);
+		this.setSala(sala);
+		this.setDiaSemana(diaSemana);
+		this.setAula(aula);
 	}
 
-
+	@JsonIgnore
 	public Periodo getPeriodo() {
 		return id.getPeriodo();
 	}
-
-
+	
 	public Disciplina getDisciplina() {
 		return id.getDisciplina();
 	}
-
-	public AulaPK getId() {
-		return id;
-	}
-
-	public void setId(AulaPK id) {
-		this.id = id;
-	}
-
+	
 	public Sala getSala() {
 		return sala;
 	}
@@ -54,22 +54,21 @@ public class Aula  implements Serializable {
 		this.sala = sala;
 	}
 
-	public String getDia() {
-		return dia;
+	public String getDiaSemana() {
+		return diaSemana;
 	}
 
-	public void setDia(String dia) {
-		this.dia = dia;
+	public void setDiaSemana(String diaSemana) {
+		this.diaSemana = diaSemana;
 	}
 
-	public String getHorario() {
-		return horario;
+	public Integer getAula() {
+		return aula;
 	}
 
-	public void setHorario(String horario) {
-		this.horario = horario;
+	public void setAula(Integer aula) {
+		this.aula = aula;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,7 +76,6 @@ public class Aula  implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -86,7 +84,7 @@ public class Aula  implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Aula other = (Aula) obj;
+		Disciplina_Sala other = (Disciplina_Sala) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -94,5 +92,4 @@ public class Aula  implements Serializable {
 			return false;
 		return true;
 	}	
-	
 }

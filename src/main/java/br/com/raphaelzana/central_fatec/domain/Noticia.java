@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,17 +23,22 @@ public class Noticia  implements Serializable {
 	private String titulo;
 	private String descricao;
 	
+	@ManyToOne
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
+	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date data;
 	
 	public Noticia() {}
 
-	public Noticia(Integer id, String titulo, String descricao, Date data) {
+	public Noticia(Integer id, String titulo, String descricao, Date data, Usuario usuario) {
 		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.data = data;
+		this.setId(id);
+		this.setTitulo(titulo);
+		this.setDescricao(descricao);
+		this.setData(data);
+		this.setUsuario(usuario);
 	}
 
 	public Integer getId() {
@@ -89,6 +96,14 @@ public class Noticia  implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	

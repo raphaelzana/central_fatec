@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import br.com.raphaelzana.central_fatec.domain.enums.TipoObjeto;
 
@@ -22,19 +24,24 @@ public class Objeto implements Serializable {
 	private String local;
 	private Date data;
 	
+	@ManyToOne
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
+	
 	private Integer tipo;
 	
 	public Objeto() {}
 
-	public Objeto(Integer id, String descricao, String local, Date data, TipoObjeto tipo) {
+	public Objeto(Integer id, String descricao, String local, Date data, Usuario usuario, TipoObjeto tipo) {
 		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.local = local;
-		this.data = data;
+		this.setId(id);
+		this.setDescricao(descricao);
+		this.setLocal(local);
+		this.setData(data);
+		this.setUsuario(usuario);
 		this.tipo = (tipo == null) ? null : tipo.getId();
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -98,6 +105,14 @@ public class Objeto implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	

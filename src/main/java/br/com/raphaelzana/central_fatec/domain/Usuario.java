@@ -1,13 +1,18 @@
 package br.com.raphaelzana.central_fatec.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.raphaelzana.central_fatec.domain.enums.TipoUsuario;
 
@@ -25,13 +30,25 @@ public class Usuario implements Serializable {
 	
 	private Integer tipo;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="usuario")
+	private List<Noticia> noticias = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="usuario")
+	private List<Objeto> objetos = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="usuario")
+	private List<Reserva> reservas = new ArrayList<>();
+	
 	public Usuario() {}
 
 	public Usuario(Integer id, @Email String email, String senha, TipoUsuario tipo) {
 		super();
-		this.id = id;
-		this.email = email;
-		this.senha = senha;
+		this.setId(id);
+		this.setEmail(email);
+		this.setSenha(senha);
 		this.tipo = (tipo == null) ? null : tipo.getId();
 	}
 
@@ -65,6 +82,34 @@ public class Usuario implements Serializable {
 
 	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo.getId();
+	}
+
+	public List<Noticia> getNoticias() {
+		return noticias;
+	}
+
+	public void setNoticias(List<Noticia> noticias) {
+		this.noticias = noticias;
+	}
+
+	public List<Objeto> getObjetos() {
+		return objetos;
+	}
+
+	public void setObjetos(List<Objeto> objetos) {
+		this.objetos = objetos;
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override

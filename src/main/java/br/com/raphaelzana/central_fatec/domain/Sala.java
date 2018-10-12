@@ -1,11 +1,16 @@
 package br.com.raphaelzana.central_fatec.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Sala implements Serializable {
@@ -18,13 +23,25 @@ public class Sala implements Serializable {
 	private String nome;
 	private String bloco;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="sala")
+	private List<Disciplina_Sala> disciplinas = new ArrayList<>();
+	
 	public Sala() {}
 
 	public Sala(Integer id, String nome, String bloco) {
 		super();
-		this.id = id;
-		this.nome = nome;
-		this.bloco = bloco;
+		this.setId(id);
+		this.setNome(nome);
+		this.setBloco(bloco);
+	}
+	
+	public List<Disciplina_Sala> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina_Sala> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 
 	public Integer getId() {

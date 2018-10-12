@@ -3,13 +3,21 @@ package br.com.raphaelzana.central_fatec.domain;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+
 
 @Embeddable
-public class AulaPK implements Serializable {
+public class Disciplina_SalaPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@ManyToOne
+	@JoinColumn(name="periodo_id")
 	private Periodo periodo;
 	
+	@ManyToOne
+	@JoinColumn(name="disciplina_id")
 	private Disciplina disciplina;
 
 	public Periodo getPeriodo() {
@@ -45,7 +53,7 @@ public class AulaPK implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AulaPK other = (AulaPK) obj;
+		Disciplina_SalaPK other = (Disciplina_SalaPK) obj;
 		if (disciplina == null) {
 			if (other.disciplina != null)
 				return false;
@@ -58,7 +66,6 @@ public class AulaPK implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 
+	
 }

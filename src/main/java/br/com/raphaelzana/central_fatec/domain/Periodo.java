@@ -1,11 +1,16 @@
 package br.com.raphaelzana.central_fatec.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+
 
 @Entity
 public class Periodo implements Serializable {
@@ -17,12 +22,23 @@ public class Periodo implements Serializable {
 	
 	private String nome;
 	
+	@OneToMany(mappedBy="id.periodo")
+	private Set<Disciplina_Sala> disciplinas = new HashSet<>();
+	
 	public Periodo() {}
 
 	public Periodo(Integer id, String nome) {
 		super();
-		this.id = id;
-		this.nome = nome;
+		this.setId(id);
+		this.setNome(nome);
+	}
+
+	public Set<Disciplina_Sala> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(Set<Disciplina_Sala> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 
 	public Integer getId() {

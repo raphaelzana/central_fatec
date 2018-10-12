@@ -9,26 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.raphaelzana.central_fatec.domain.Noticia;
-import br.com.raphaelzana.central_fatec.services.NoticiaService;
+import br.com.raphaelzana.central_fatec.domain.Objeto;
+import br.com.raphaelzana.central_fatec.services.ObjetoService;
 
 @RestController
-@RequestMapping(value="/noticias")
-public class NoticiaResource {
+@RequestMapping(value="/objetos")
+public class ObjetoResource {
 	
 	@Autowired
-	private NoticiaService service;
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Noticia obj = service.find(id);
-		return ResponseEntity.ok().body(obj);
-	}
+	private ObjetoService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Noticia>> findAll() {
-		List<Noticia> list = service.findAll();
+	public ResponseEntity<List<Objeto>> findAll() {
+		List<Objeto> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 		
 	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) {
+		Objeto obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
+	}
+
 }

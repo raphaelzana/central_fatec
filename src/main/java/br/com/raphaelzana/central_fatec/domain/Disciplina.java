@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Disciplina implements Serializable {
@@ -17,19 +15,14 @@ public class Disciplina implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String nome;
-	
-	@ManyToOne
-	@JoinColumn(name="curso_id")
-	private Curso curso;
+	private String nome;	
 	
 	public Disciplina() {}
 
-	public Disciplina(Integer id, String nome,Curso curso) {
+	public Disciplina(Integer id, String nome,Curso curso, Sala sala, Integer semestre, Periodo periodo) {
 		super();
-		this.id = id;
-		this.nome = nome;
-		this.curso = curso;
+		this.setId(id);
+		this.setNome(nome);
 	}
 
 	public Integer getId() {
@@ -48,15 +41,6 @@ public class Disciplina implements Serializable {
 		this.nome = nome;
 	}
 
-	public Curso getCurso() {
-		return curso;
-	}
-
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
-
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -81,7 +65,4 @@ public class Disciplina implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-
 }

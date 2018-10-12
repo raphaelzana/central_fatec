@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Reserva implements Serializable {
@@ -16,22 +18,28 @@ public class Reserva implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	@ManyToOne
+	@JoinColumn(name="projetor_id")
 	private Projetor projetor;
+	
 	private Date dataInicio;
 	private Date dataFim;
+	
+	@ManyToOne
+	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 
 	public Reserva() {}
 
 	public Reserva(Integer id, Projetor projetor, Date dataInicio,Date dataFim, Usuario usuario) {
 		super();
-		this.id = id;
-		this.projetor = projetor;
-		this.dataInicio = dataInicio;
-		this.dataFim = dataFim;
-		this.usuario = usuario;
+		this.setId(id);
+		this.setProjetor(projetor);
+		this.setDataInicio(dataInicio);
+		this.setDataFim(dataFim);
+		this.setUsuario(usuario);
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}

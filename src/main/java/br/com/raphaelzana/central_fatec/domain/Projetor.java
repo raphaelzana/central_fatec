@@ -1,11 +1,16 @@
 package br.com.raphaelzana.central_fatec.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Projetor implements Serializable {
@@ -18,13 +23,25 @@ public class Projetor implements Serializable {
 	private boolean status;
 	private String descricao;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="projetor")
+	private List<Reserva> reservas = new ArrayList<>();
+	
 	public Projetor() {}
 
 	public Projetor(Integer id, boolean status, String descricao) {
 		super();
-		this.id = id;
-		this.status = status;
-		this.descricao = descricao;
+		this.setId(id);
+		this.setStatus(status);
+		this.setDescricao(descricao);
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
 	}
 
 	public Integer getId() {
