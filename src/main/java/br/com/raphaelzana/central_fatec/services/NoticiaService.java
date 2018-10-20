@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.raphaelzana.central_fatec.domain.Noticia;
 import br.com.raphaelzana.central_fatec.repositories.NoticiaRepository;
@@ -24,4 +25,26 @@ public class NoticiaService {
 		return repo.findAll();
 	}
 
+	@Transactional
+	public Noticia insert(Noticia obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public Noticia update(Noticia obj) {
+		Noticia newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		repo.deleteById(id);
+	}
+	
+	private void updateData(Noticia newObj, Noticia obj) {
+		newObj.setTitulo(obj.getTitulo());
+		newObj.setDescricao(obj.getDescricao());
+	}
+	
 }
