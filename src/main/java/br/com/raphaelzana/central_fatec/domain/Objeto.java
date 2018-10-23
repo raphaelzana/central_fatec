@@ -74,12 +74,12 @@ public class Objeto implements Serializable {
 		this.data = data;
 	}
 
-	public Integer getTipo() {
-		return tipo;
+	public TipoObjeto getTipo() {
+		return TipoObjeto.toEnum(tipo);
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setTipo(TipoObjeto tipo) {
+		this.tipo = tipo.getId();
 	}
 
 	@Override

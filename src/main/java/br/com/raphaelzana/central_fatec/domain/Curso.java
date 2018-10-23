@@ -19,16 +19,35 @@ public class Curso implements Serializable {
 	
 	private String nome;
 	private Integer periodo;
+	private Integer duracao;
 	
 	public Curso() {}
 
-	public Curso(Integer id, String nome, PeriodoCurso periodo) {
+	public Curso(Integer id, String nome, PeriodoCurso periodo, Integer duracao) {
 		super();
 		this.setId(id);
 		this.setNome(nome);
+		this.duracao = duracao;
 		this.periodo = (periodo == null) ? null : periodo.getId();
 	}
 	
+	
+	public PeriodoCurso getPeriodo() {
+		return PeriodoCurso.toEnum(periodo);
+	}
+
+	public void setPeriodo(PeriodoCurso periodo) {
+		this.periodo = periodo.getId();
+	}
+
+	public Integer getDuracao() {
+		return duracao;
+	}
+
+	public void setDuracao(Integer duracao) {
+		this.duracao = duracao;
+	}
+
 	public PeriodoCurso getTipo() {
 		return PeriodoCurso.toEnum(periodo);
 	}

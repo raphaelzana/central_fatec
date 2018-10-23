@@ -25,22 +25,43 @@ public class Disciplina_Sala implements Serializable {
 	
 	private String diaSemana;
 	private Integer aula;
+	private Integer semestre;
 	
 	public Disciplina_Sala() {}
 
-	public Disciplina_Sala(Disciplina disciplina, Sala sala, String diaSemana, Integer aula) {
+	public Disciplina_Sala(Disciplina disciplina, Sala sala, String diaSemana, Integer aula, Integer semestre) {
 		super();
 		id.setDisciplina(disciplina);
 		this.setSala(sala);
 		this.setDiaSemana(diaSemana);
 		this.setAula(aula);
+		this.semestre = semestre;
+	}
+	
+	public Integer getSemestre() {
+		return semestre;
 	}
 
-	
+	public void setSemestre(Integer semestre) {
+		this.semestre = semestre;
+	}
+
 	public Disciplina getDisciplina() {
 		return id.getDisciplina();
 	}
 	
+	public Curso getCurso() {
+		return id.getCurso();
+	}
+	
+	public Disciplina_SalaPK getId() {
+		return id;
+	}
+
+	public void setId(Disciplina_SalaPK id) {
+		this.id = id;
+	}
+
 	public Sala getSala() {
 		return sala;
 	}
