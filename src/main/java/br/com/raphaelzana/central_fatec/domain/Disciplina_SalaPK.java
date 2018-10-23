@@ -13,19 +13,19 @@ public class Disciplina_SalaPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name="periodo_id")
-	private Periodo periodo;
+	@JoinColumn(name="curso_id")
+	private Curso curso;
 	
 	@ManyToOne
 	@JoinColumn(name="disciplina_id")
 	private Disciplina disciplina;
 
-	public Periodo getPeriodo() {
-		return periodo;
+	public Curso getCurso() {
+		return curso;
 	}
 
-	public void setPeriodo(Periodo periodo) {
-		this.periodo = periodo;
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 
 	public Disciplina getDisciplina() {
@@ -41,7 +41,7 @@ public class Disciplina_SalaPK implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((disciplina == null) ? 0 : disciplina.hashCode());
-		result = prime * result + ((periodo == null) ? 0 : periodo.hashCode());
+		result = prime * result + ((curso == null) ? 0 : curso.hashCode());
 		return result;
 	}
 
@@ -59,10 +59,10 @@ public class Disciplina_SalaPK implements Serializable {
 				return false;
 		} else if (!disciplina.equals(other.disciplina))
 			return false;
-		if (periodo == null) {
-			if (other.periodo != null)
+		if (curso == null) {
+			if (other.curso != null)
 				return false;
-		} else if (!periodo.equals(other.periodo))
+		} else if (!curso.equals(other.curso))
 			return false;
 		return true;
 	}

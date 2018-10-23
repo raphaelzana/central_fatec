@@ -28,19 +28,14 @@ public class Disciplina_Sala implements Serializable {
 	
 	public Disciplina_Sala() {}
 
-	public Disciplina_Sala(Disciplina disciplina, Periodo periodo, Sala sala, String diaSemana, Integer aula) {
+	public Disciplina_Sala(Disciplina disciplina, Sala sala, String diaSemana, Integer aula) {
 		super();
 		id.setDisciplina(disciplina);
-		id.setPeriodo(periodo);
 		this.setSala(sala);
 		this.setDiaSemana(diaSemana);
 		this.setAula(aula);
 	}
 
-	@JsonIgnore
-	public Periodo getPeriodo() {
-		return id.getPeriodo();
-	}
 	
 	public Disciplina getDisciplina() {
 		return id.getDisciplina();

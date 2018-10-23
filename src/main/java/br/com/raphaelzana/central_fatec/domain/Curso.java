@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.raphaelzana.central_fatec.domain.enums.PeriodoCurso;
+
 @Entity
 public class Curso implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -16,13 +18,23 @@ public class Curso implements Serializable {
 	private Integer id;
 	
 	private String nome;
+	private Integer periodo;
 	
 	public Curso() {}
 
-	public Curso(Integer id, String nome) {
+	public Curso(Integer id, String nome, PeriodoCurso periodo) {
 		super();
 		this.setId(id);
 		this.setNome(nome);
+		this.periodo = (periodo == null) ? null : periodo.getId();
+	}
+	
+	public PeriodoCurso getTipo() {
+		return PeriodoCurso.toEnum(periodo);
+	}
+
+	public void setTipo(PeriodoCurso tipo) {
+		this.periodo = tipo.getId();
 	}
 
 	public Integer getId() {

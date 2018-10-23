@@ -19,7 +19,7 @@ public class Disciplina implements Serializable {
 	
 	public Disciplina() {}
 
-	public Disciplina(Integer id, String nome,Curso curso, Sala sala, Integer semestre, Periodo periodo) {
+	public Disciplina(Integer id, String nome,Curso curso, Sala sala, Integer semestre) {
 		super();
 		this.setId(id);
 		this.setNome(nome);
