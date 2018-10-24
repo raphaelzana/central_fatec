@@ -48,14 +48,6 @@ public class Curso implements Serializable {
 		this.duracao = duracao;
 	}
 
-	public PeriodoCurso getTipo() {
-		return PeriodoCurso.toEnum(periodo);
-	}
-
-	public void setTipo(PeriodoCurso tipo) {
-		this.periodo = tipo.getId();
-	}
-
 	public Integer getId() {
 		return id;
 	}
