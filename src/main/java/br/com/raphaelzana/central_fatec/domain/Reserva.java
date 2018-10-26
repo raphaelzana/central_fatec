@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import br.com.raphaelzana.central_fatec.domain.enums.PeriodoCurso;
+
 @Entity
 public class Reserva implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,8 +26,13 @@ public class Reserva implements Serializable {
 	@JoinColumn(name="projetor_id")
 	private Projetor projetor;
 	
-	private Date dataInicio;
-	private Date dataFim;
+	private Integer periodo;
+
+	@JsonFormat(pattern="dd-MM-yyyy")
+	private Date data;
+	
+	private Integer aula;
+	private String descricao;
 	
 	@ManyToOne
 	@JoinColumn(name="usuario_id")
@@ -31,37 +40,55 @@ public class Reserva implements Serializable {
 
 	public Reserva() {}
 
-	public Reserva(Integer id, Projetor projetor, Date dataInicio,Date dataFim, Usuario usuario) {
+	public Reserva(Integer id, Projetor projetor, Usuario usuario, Date data, Integer aula, String descricao, PeriodoCurso periodo) {
 		super();
 		this.setId(id);
 		this.setProjetor(projetor);
-		this.setDataInicio(dataInicio);
-		this.setDataFim(dataFim);
 		this.setUsuario(usuario);
+		this.data = data;
+		this.aula = aula;
+		this.descricao = descricao;
+		this.periodo = (periodo == null) ? null : periodo.getId();
 	}
 	
+	public PeriodoCurso getPeriodo() {
+		return PeriodoCurso.toEnum(periodo);
+	}
+
+	public void setPeriodo(PeriodoCurso periodo) {
+		this.periodo = periodo.getId();
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public Integer getAula() {
+		return aula;
+	}
+
+	public void setAula(Integer aula) {
+		this.aula = aula;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Date getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-
-	public Date getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
 	}
 
 	public Projetor getProjetor() {

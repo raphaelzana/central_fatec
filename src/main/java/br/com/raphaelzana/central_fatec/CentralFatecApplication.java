@@ -1,24 +1,20 @@
 package br.com.raphaelzana.central_fatec;
 
-import java.util.Arrays;
-
+import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.com.raphaelzana.central_fatec.domain.Curso;
-import br.com.raphaelzana.central_fatec.domain.Disciplina;
-import br.com.raphaelzana.central_fatec.domain.Disciplina_Sala;
-import br.com.raphaelzana.central_fatec.domain.Sala;
+import br.com.raphaelzana.central_fatec.domain.Projetor;
+import br.com.raphaelzana.central_fatec.domain.Reserva;
 import br.com.raphaelzana.central_fatec.domain.Usuario;
 import br.com.raphaelzana.central_fatec.domain.enums.PeriodoCurso;
 import br.com.raphaelzana.central_fatec.domain.enums.TipoUsuario;
-import br.com.raphaelzana.central_fatec.repositories.CursoRepository;
-import br.com.raphaelzana.central_fatec.repositories.DisciplinaRepository;
-import br.com.raphaelzana.central_fatec.repositories.Disciplina_SalaRepository;
-import br.com.raphaelzana.central_fatec.repositories.SalaRepository;
+import br.com.raphaelzana.central_fatec.repositories.ProjetorRepository;
+import br.com.raphaelzana.central_fatec.repositories.ReservaRepository;
 import br.com.raphaelzana.central_fatec.repositories.UsuarioRepository;
+
 
 @SpringBootApplication
 public class CentralFatecApplication implements CommandLineRunner {
@@ -27,65 +23,31 @@ public class CentralFatecApplication implements CommandLineRunner {
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
-	private CursoRepository cursoRepository;
+	private ReservaRepository reservaRepository;
 	
 	@Autowired
-	private SalaRepository salaRepository;
-	
-	@Autowired
-	private DisciplinaRepository disciplinaRepository;
-	
-	@Autowired
-	private Disciplina_SalaRepository disciplina_salaRepository;
+	private ProjetorRepository projetorRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CentralFatecApplication.class, args);
 	}
-	
+
 	@Override
 	public void run(String... args) throws Exception {
+	
+		Usuario prof = new Usuario(null, "prdaof@proaasdafs.prsassdadaaaaghgsdaofa", "profftq", TipoUsuario.PROFESSOR);
 		
-		/* 1 cadastro para cada professor, ai idProfessor estara em disciplina_sala*/
-		Usuario admin = new Usuario(null, "adm@adm.adm", "admftq", TipoUsuario.ADMIN);
-		Usuario mirela = new Usuario(null, "mirela@ingles1.ftq", "profftq", TipoUsuario.PROFESSOR);
-		Usuario jederson = new Usuario(null, "jederson@les.ftq", "profftq", TipoUsuario.PROFESSOR);
-		Usuario aluno = new Usuario(null, "aluno@aluno.aluno", "alunoftq", TipoUsuario.ALUNO);
+		usuarioRepository.save(prof);
 		
-		Curso adsNoite = new Curso(null, "Análise e Desenvolvimento de Sistemas", PeriodoCurso.NOITE, 8);
-		Curso adsTarde = new Curso(null, "Análise e Desenvolvimento de Sistemas", PeriodoCurso.TARDE, 6);
-		Curso agroManha = new Curso(null, "Agronegócio", PeriodoCurso.MANHA, 6);
-		Curso agroNoite = new Curso(null, "Agronegócio", PeriodoCurso.NOITE, 8);
-		Curso piManha = new Curso(null, "Produção Industrial", PeriodoCurso.MANHA, 6);
-		Curso piNoite = new Curso(null, "Produção Industrial", PeriodoCurso.NOITE, 8);
-		Curso siManha = new Curso(null, "Sistemas para Internet", PeriodoCurso.MANHA, 6);
-		Curso geEAD = new Curso(null, "Gestão Empresarial", PeriodoCurso.MANHA/*EAD*/, 6);
-		/*fazer enum EAD para ge */
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
+		Projetor p1 = new Projetor(null, true, "a");
+		projetorRepository.save(p1);
+		Reserva res = new Reserva(null, p1, prof, sdf.parse("01-01-2000"), 1, "oi", PeriodoCurso.NOITE);
 		
-		Sala lab1 = new Sala(null, "Laboratório de Informática 1", "A1");
-		Sala lab2 = new Sala(null, "Laboratório de Informática 2", "A1");
-		Sala lab3 = new Sala(null, "Laboratório de Informática 3", "A1");
-		Sala lab4 = new Sala(null, "Laboratório de Informática 4", "A1");
-		Sala lab5 = new Sala(null, "Laboratório de Informática 5", "A1");
-		Sala lab1pi = new Sala(null, "Laboratório de Produção Industrial 1", "A2");
-		Sala lab2pi = new Sala(null, "Laboratório de Produção Industrial 2", "A2");
+		reservaRepository.save(res);
 		
-		Disciplina les = new Disciplina(null, "Laboratório de Engenharia de Software");
-		Disciplina ing1 = new Disciplina(null, "Ingles I");
+		System.out.println(reservaRepository.findByDataAndPeriodoAndAula(sdf.parse("01-01-2000"), 1, 1).contains(res));
 		
-		Disciplina_Sala salaLes = new Disciplina_Sala(les, adsNoite, lab1, "Quinta-Feira", 4, 7);
-		Disciplina_Sala salaIng1 = new Disciplina_Sala(ing1, adsNoite, lab2, "Segunda-Feira", 1, 6);
-		
-		usuarioRepository.save(admin);
-		usuarioRepository.save(mirela);
-		usuarioRepository.save(jederson);
-		usuarioRepository.save(aluno);
-		
-		cursoRepository.saveAll(Arrays.asList(adsNoite,adsTarde,agroManha,agroNoite,piManha,piNoite,siManha,geEAD));
-		
-		salaRepository.saveAll(Arrays.asList(lab1,lab2,lab3,lab4,lab5,lab1pi,lab2pi));
-		disciplinaRepository.save(les);
-		
-		disciplina_salaRepository.saveAll(Arrays.asList(salaLes, salaIng1));
 	}
 	
 }
