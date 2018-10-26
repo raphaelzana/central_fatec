@@ -21,6 +21,7 @@ public class Objeto implements Serializable {
 	private Integer id;
 	
 	private String descricao;
+	private String justificativa;
 	private String local;
 	private Date data;
 	
@@ -32,10 +33,11 @@ public class Objeto implements Serializable {
 	
 	public Objeto() {}
 
-	public Objeto(Integer id, String descricao, String local, Date data, Usuario usuario, TipoObjeto tipo) {
+	public Objeto(Integer id, String descricao, String justificativa, String local, Date data, Usuario usuario, TipoObjeto tipo) {
 		super();
 		this.setId(id);
 		this.setDescricao(descricao);
+		this.setJustificativa(justificativa);
 		this.setLocal(local);
 		this.setData(data);
 		this.setUsuario(usuario);
@@ -114,9 +116,13 @@ public class Objeto implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
-	
-	
+
+	public String getJustificativa() {
+		return justificativa;
+	}
+
+	public void setJustificativa(String justificativa) {
+		this.justificativa = justificativa;
+	}
 
 }

@@ -35,6 +35,7 @@ public class CentralFatecApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 	
+		/*
 		Usuario prof = new Usuario(null, "prdaof@proaasdafs.prsassdadaaaaghgsdaofa", "profftq", TipoUsuario.PROFESSOR);
 		
 		usuarioRepository.save(prof);
@@ -47,6 +48,7 @@ public class CentralFatecApplication implements CommandLineRunner {
 		reservaRepository.save(res);
 		
 		System.out.println(reservaRepository.findByDataAndPeriodoAndAula(sdf.parse("01-01-2000"), 1, 1).contains(res));
+		*/
 		
 	}
 	
