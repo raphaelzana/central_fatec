@@ -1,6 +1,7 @@
 package br.com.raphaelzana.central_fatec;
 
 import java.text.SimpleDateFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,8 +36,8 @@ public class CentralFatecApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 	
-		/*
-		Usuario prof = new Usuario(null, "prdaof@proaasdafs.prsassdadaaaaghgsdaofa", "profftq", TipoUsuario.PROFESSOR);
+		
+		Usuario prof = new Usuario(null, "prof@prof.prof", "profftq", TipoUsuario.PROFESSOR);
 		
 		usuarioRepository.save(prof);
 		
@@ -48,7 +49,7 @@ public class CentralFatecApplication implements CommandLineRunner {
 		reservaRepository.save(res);
 		
 		System.out.println(reservaRepository.findByDataAndPeriodoAndAula(sdf.parse("01-01-2000"), 1, 1).contains(res));
-		*/
+		
 		
 	}
 	
