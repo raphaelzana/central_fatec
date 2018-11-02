@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.com.raphaelzana.central_fatec.domain.enums.TipoObjeto;
+import br.com.raphaelzana.central_fatec.dto.ObjetoFormularioDTO;
 
 @Entity
 public class Objeto implements Serializable {
@@ -20,8 +21,8 @@ public class Objeto implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	private String objeto;
 	private String descricao;
-	private String justificativa;
 	private String local;
 	private Date data;
 	
@@ -32,12 +33,23 @@ public class Objeto implements Serializable {
 	private Integer tipo;
 	
 	public Objeto() {}
+	
+	public Objeto(ObjetoFormularioDTO dto) {
+		this.descricao = dto.getDescricao();
+		this.objeto = dto.getObjeto();
+		this.local = dto.getLocal();
+		this.tipo = dto.getTipo().getId();
+		this.data = new Date();
+		Usuario user = new Usuario();
+		user.setId(3);
+		this.usuario = user;
+	}
 
-	public Objeto(Integer id, String descricao, String justificativa, String local, Date data, Usuario usuario, TipoObjeto tipo) {
+	public Objeto(Integer id, String descricao, String objeto, String local, Date data, Usuario usuario, TipoObjeto tipo) {
 		super();
 		this.setId(id);
 		this.setDescricao(descricao);
-		this.setJustificativa(justificativa);
+		this.setObjeto(objeto);
 		this.setLocal(local);
 		this.setData(data);
 		this.setUsuario(usuario);
@@ -117,12 +129,12 @@ public class Objeto implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public String getJustificativa() {
-		return justificativa;
+	public String getObjeto() {
+		return objeto;
 	}
 
-	public void setJustificativa(String justificativa) {
-		this.justificativa = justificativa;
+	public void setObjeto(String objeto) {
+		this.objeto = objeto;
 	}
 
 }

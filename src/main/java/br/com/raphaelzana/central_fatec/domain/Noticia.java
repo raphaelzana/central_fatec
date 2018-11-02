@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.raphaelzana.central_fatec.dto.NoticiaFormularioDTO;
+
 @Entity
 public class Noticia  implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +33,15 @@ public class Noticia  implements Serializable {
 	private Date data;
 	
 	public Noticia() {}
+	
+	public Noticia(NoticiaFormularioDTO dto) {
+		this.titulo = dto.getTitulo();
+		this.descricao = dto.getDescricao();
+		Usuario user = new Usuario();
+		user.setId(1);
+		this.usuario = user;
+		this.data = new Date(new java.util.Date().getTime());
+	}
 
 	public Noticia(Integer id, String titulo, String descricao, Date data, Usuario usuario) {
 		super();

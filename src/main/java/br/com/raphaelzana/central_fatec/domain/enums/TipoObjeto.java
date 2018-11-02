@@ -1,5 +1,8 @@
 package br.com.raphaelzana.central_fatec.domain.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum TipoObjeto {
 
 	ACHADO(1,"Achado"),
@@ -33,5 +36,14 @@ public enum TipoObjeto {
 		}
 		throw new IllegalArgumentException("Id inválido: " + id);
 	}
+	
+	public static List<TipoObjeto> buscarTodos() {
+		List<TipoObjeto> list = new ArrayList<>();
+		for (TipoObjeto objeto : TipoObjeto.values()) {
+			list.add(objeto);
+		}
+		return list;
+	}
+
 	
 }
