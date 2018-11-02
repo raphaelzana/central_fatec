@@ -46,6 +46,10 @@ public class CentralFatecApplication implements CommandLineRunner {
 		
 		usuarioRepository.save(prof);
 		
+		Usuario adm = new Usuario(null, "adm@adm.adm", pe.encode("admftq"));
+		adm.addPerfil(Perfil.ADMIN);
+		usuarioRepository.save(adm);
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
 		Projetor p1 = new Projetor(null, true, "a");
 		projetorRepository.save(p1);
