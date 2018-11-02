@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import br.com.raphaelzana.central_fatec.domain.Projetor;
 import br.com.raphaelzana.central_fatec.domain.Reserva;
 import br.com.raphaelzana.central_fatec.domain.Usuario;
+import br.com.raphaelzana.central_fatec.domain.enums.Perfil;
 import br.com.raphaelzana.central_fatec.domain.enums.PeriodoCurso;
 import br.com.raphaelzana.central_fatec.repositories.ProjetorRepository;
 import br.com.raphaelzana.central_fatec.repositories.ReservaRepository;
@@ -41,6 +42,7 @@ public class CentralFatecApplication implements CommandLineRunner {
 	
 		
 		Usuario prof = new Usuario(null, "prof@prof.prof", pe.encode("profftq"));
+		prof.addPerfil(Perfil.PROFESSOR);
 		
 		usuarioRepository.save(prof);
 		

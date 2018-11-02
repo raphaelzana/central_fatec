@@ -2,10 +2,16 @@ package br.com.raphaelzana.central_fatec.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.raphaelzana.central_fatec.domain.enums.Perfil;
 
 @Entity
 public class Usuario implements Serializable {
@@ -28,6 +36,10 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	private String senha;
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="usuario")
 	private List<Noticia> noticias = new ArrayList<>();
@@ -40,13 +52,23 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<Reserva> reservas = new ArrayList<>();
 	
-	public Usuario() {}
+	public Usuario() {
+		addPerfil(Perfil.ALUNO);
+	}
 
 	public Usuario(Integer id, @Email String email, String senha) {
 		super();
 		this.setId(id);
 		this.setEmail(email);
 		this.setSenha(senha);
+	}
+	
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getId());
 	}
 
 	public Integer getId() {
