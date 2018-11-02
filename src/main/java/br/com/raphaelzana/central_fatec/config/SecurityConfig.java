@@ -17,13 +17,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {
-			"/h2-console/**"
-	};
-	
-	private static final String[] PUBLIC_MATCHERS = {
 			"/noticias/**",
 			"/objetos/**",
 			"/usuarios/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS = {
+			"/h2-console/**"
 	};
 	
 	@Override
