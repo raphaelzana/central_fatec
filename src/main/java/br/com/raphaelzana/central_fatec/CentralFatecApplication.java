@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.raphaelzana.central_fatec.domain.Projetor;
 import br.com.raphaelzana.central_fatec.domain.Reserva;
 import br.com.raphaelzana.central_fatec.domain.Usuario;
 import br.com.raphaelzana.central_fatec.domain.enums.PeriodoCurso;
-import br.com.raphaelzana.central_fatec.domain.enums.TipoUsuario;
 import br.com.raphaelzana.central_fatec.repositories.ProjetorRepository;
 import br.com.raphaelzana.central_fatec.repositories.ReservaRepository;
 import br.com.raphaelzana.central_fatec.repositories.UsuarioRepository;
@@ -29,6 +29,9 @@ public class CentralFatecApplication implements CommandLineRunner {
 	@Autowired
 	private ProjetorRepository projetorRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CentralFatecApplication.class, args);
 	}
@@ -37,7 +40,7 @@ public class CentralFatecApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 	
 		
-		Usuario prof = new Usuario(null, "prof@prof.prof", "profftq", TipoUsuario.PROFESSOR);
+		Usuario prof = new Usuario(null, "prof@prof.prof", pe.encode("profftq"));
 		
 		usuarioRepository.save(prof);
 		

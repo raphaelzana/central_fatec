@@ -14,8 +14,6 @@ import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.raphaelzana.central_fatec.domain.enums.TipoUsuario;
-
 @Entity
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -26,9 +24,9 @@ public class Usuario implements Serializable {
 	
 	@Column(unique=true)
 	private String email;
-	private String senha;
 	
-	private Integer tipo;
+	@JsonIgnore
+	private String senha;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="usuario")
@@ -44,12 +42,11 @@ public class Usuario implements Serializable {
 	
 	public Usuario() {}
 
-	public Usuario(Integer id, @Email String email, String senha, TipoUsuario tipo) {
+	public Usuario(Integer id, @Email String email, String senha) {
 		super();
 		this.setId(id);
 		this.setEmail(email);
 		this.setSenha(senha);
-		this.tipo = (tipo == null) ? null : tipo.getId();
 	}
 
 	public Integer getId() {
@@ -76,14 +73,6 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public TipoUsuario getTipo() {
-		return TipoUsuario.toEnum(tipo);
-	}
-
-	public void setTipo(TipoUsuario tipo) {
-		this.tipo = tipo.getId();
-	}
-
 	public List<Noticia> getNoticias() {
 		return noticias;
 	}
@@ -107,11 +96,6 @@ public class Usuario implements Serializable {
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
 	}
-
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
