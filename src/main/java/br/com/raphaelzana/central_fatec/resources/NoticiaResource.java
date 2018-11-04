@@ -67,6 +67,7 @@ public class NoticiaResource {
 //		return ResponseEntity.created(uri).build();
 //	}
 	
+	@PreAuthorize("hasAnyRole('ALUNO','ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody NoticiaFormularioDTO dto){
 		Noticia obj = new Noticia(dto);

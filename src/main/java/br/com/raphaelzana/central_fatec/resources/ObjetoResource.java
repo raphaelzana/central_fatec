@@ -74,6 +74,7 @@ public class ObjetoResource {
 //		return ResponseEntity.created(uri).build();
 //	}
 	
+	@PreAuthorize("hasAnyRole('ALUNO','ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ObjetoFormularioDTO dto){
 		Objeto obj = new Objeto(dto);
